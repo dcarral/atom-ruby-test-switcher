@@ -1,7 +1,7 @@
 'context-menu':
   'atom-text-editor': [
     {
-      'label': 'Switch between code and test'
+      'label': 'Switch to test/code file'
       'command': 'ruby-test-utilities:switch'
     }
   ]
@@ -12,7 +12,7 @@
       'label': 'Ruby Test Utilities'
       'submenu': [
         {
-          'label': 'Switch between code and test'
+          'label': 'Switch to test/code file'
           'command': 'ruby-test-utilities:switch'
         }
       ]
