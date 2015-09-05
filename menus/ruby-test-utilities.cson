@@ -1,0 +1,21 @@
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Switch between code and test'
+      'command': 'ruby-test-utilities:switch'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Ruby Test Utilities'
+      'submenu': [
+        {
+          'label': 'Switch between code and test'
+          'command': 'ruby-test-utilities:switch'
+        }
+      ]
+    ]
+  }
+]

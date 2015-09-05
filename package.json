@@ -1,0 +1,28 @@
+{
+  "name": "ruby-test-utilities",
+  "author": "Daniel Carral",
+  "main": "./lib/ruby-test-utilities",
+  "version": "0.0.0",
+  "description": "Switch between code and test files with a keystroke",
+  "activationHooks": ["language-ruby:grammar-used"],
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": "ruby-test-utilities:switch"
+  },
+  "repository": "https://github.com/dcarral/atom-ruby-test-utilities",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+  },
+  "keywords": [
+    "ruby",
+    "test",
+    "rspec",
+    "spec",
+    "tdd",
+    "bdd"
+  ]
+}
