@@ -1,4 +1,4 @@
-# ruby-test-utilities Atom package
+# ruby-test-switcher Atom package
 
 Switch between Ruby source code and test files by simply pressing <kbd>ctrl</kbd>-<kbd>shift</kbd>-<kbd>.</kbd>
 
@@ -8,8 +8,8 @@ Inspired by the awesome [Sublime Text 2 Ruby Tests](https://github.com/maltize/s
 
 ### Contributing
 
-- [Pull requests](https://github.com/dcarral/atom-ruby-test-utilities/pulls) (bonus point for topic branches)
-- [Issues](https://github.com/dcarral/atom-ruby-test-utilities/issues)
+- [Pull requests](https://github.com/dcarral/atom-ruby-test-switcher/pulls) (bonus point for topic branches)
+- [Issues](https://github.com/dcarral/atom-ruby-test-switcher/issues)
 
 ## FAQ
 

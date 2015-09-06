@@ -2,7 +2,7 @@
   'atom-text-editor': [
     {
       'label': 'Switch to test/code file'
-      'command': 'ruby-test-utilities:switch'
+      'command': 'ruby-test-switcher:switch'
     }
   ]
 'menu': [
@@ -13,7 +13,7 @@
       'submenu': [
         {
           'label': 'Switch to test/code file'
-          'command': 'ruby-test-utilities:switch'
+          'command': 'ruby-test-switcher:switch'
         }
       ]
     ]

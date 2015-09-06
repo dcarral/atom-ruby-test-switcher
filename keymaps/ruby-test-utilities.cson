@@ -1,2 +1,2 @@
 'atom-workspace':
-  'ctrl-shift-.': 'ruby-test-utilities:switch'
+  'ctrl-shift-.': 'ruby-test-switcher:switch'

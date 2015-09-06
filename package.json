@@ -1,16 +1,16 @@
 {
-  "name": "ruby-test-utilities",
+  "name": "ruby-test-switcher",
   "author": "Daniel Carral",
-  "main": "./lib/ruby-test-utilities",
+  "main": "./lib/ruby-test-switcher",
   "version": "0.0.0",
   "description": "Switch between code and test files with `ctrl-shift-`.",
   "activationHooks": ["language-ruby:grammar-used"],
   "keywords": [
   ],
   "activationCommands": {
-    "atom-workspace": "ruby-test-utilities:switch"
+    "atom-workspace": "ruby-test-switcher:switch"
   },
-  "repository": "https://github.com/dcarral/atom-ruby-test-utilities",
+  "repository": "https://github.com/dcarral/atom-ruby-test-switcher",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"

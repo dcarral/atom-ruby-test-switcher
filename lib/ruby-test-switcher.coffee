@@ -1,13 +1,13 @@
 {CompositeDisposable} = require "atom"
 BufferSwitcher = require "./buffer-switcher"
 
-module.exports = RubyTestUtilities =
+module.exports = RubyTestSwitcher =
   subscriptions: null
 
   activate: (_state) ->
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add "atom-workspace",
-     "ruby-test-utilities:switch": => @switch()
+     "ruby-test-switcher:switch": => @switch()
 
   deactivate: ->
     @subscriptions.dispose()
