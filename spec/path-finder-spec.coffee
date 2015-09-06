@@ -11,9 +11,13 @@ describe "PathFinder", ->
       atom.workspace.open(@rootPath)
 
   describe "::findSpecPath", ->
+    it "returns undefined if there aren't spec files for that source code", ->
+      codePath = Path.join(@rootPath, "lib", "without_tests.rb")
+      expect(finder.findSpecPath(codePath)).toBe(undefined)
+
     describe "with non-Rails projects", ->
       describe "at /lib", ->
-        it "returns the filepath where the spec file should be located", ->
+        it "returns the filepath where the spec file is located", ->
           codePath = Path.join(@rootPath, "lib", "foo.rb")
           expectedPath = Path.join(@rootPath, "spec", "foo_spec.rb")
           expect(finder.findSpecPath(codePath)).toBe(expectedPath)
@@ -24,14 +28,14 @@ describe "PathFinder", ->
           expect(finder.findSpecPath(codePath)).toBe(expectedPath)
 
       describe "at /lib/foo", ->
-        it "returns the filepath where the spec file should be located", ->
+        it "returns the filepath where the spec file is located", ->
           codePath = Path.join(@rootPath, "lib", "foo", "bar.rb")
           expectedPath = Path.join(@rootPath, "spec", "foo", "bar_spec.rb")
           expect(finder.findSpecPath(codePath)).toBe(expectedPath)
 
     describe "with Rails projects", ->
       describe "at /lib", ->
-        it "returns the filepath where the spec file should be located", ->
+        it "returns the filepath where the spec file is located", ->
           codePath = Path.join(@rootPath, "lib", "rails.rb")
           expectedPath = Path.join(@rootPath, "spec", "lib", "rails_spec.rb")
           expect(finder.findSpecPath(codePath)).toBe(expectedPath)
@@ -42,13 +46,13 @@ describe "PathFinder", ->
           expect(finder.findSpecPath(codePath)).toBe(expectedPath)
 
       describe "at /app/models", ->
-        it "returns the filepath where the spec file should be located", ->
+        it "returns the filepath where the spec file is located", ->
           codePath = Path.join(@rootPath, "app", "models", "foo.rb")
           expectedPath = Path.join(@rootPath, "spec", "models", "foo_spec.rb")
           expect(finder.findSpecPath(codePath)).toBe(expectedPath)
 
       describe "at /app/controllers", ->
-        it "returns the filepath where the spec file should be located", ->
+        it "returns the filepath where the spec file is located", ->
           codePath = Path.join(@rootPath, "app", "controllers", "foo.rb")
           expectedPath = Path.join(@rootPath, "spec", "controllers", "foo_spec.rb")
           expect(finder.findSpecPath(codePath)).toBe(expectedPath)
