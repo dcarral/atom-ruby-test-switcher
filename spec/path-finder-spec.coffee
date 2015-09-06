@@ -41,10 +41,11 @@ describe "PathFinder", ->
           expectedPath = Path.join(@rootPath, "spec", "lib", "rails_spec.rb")
           expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
 
-        it "returns the filepath where the spec file is located", ->
-          sourcePath = Path.join(@rootPath, "lib", "minitest_rails.rb")
-          expectedPath = Path.join(@rootPath, "test", "lib", "minitest_rails_test.rb")
-          expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
+        describe "with minitest/test-unit files", ->
+          it "returns the filepath where the spec file is located", ->
+            sourcePath = Path.join(@rootPath, "lib", "minitest_rails.rb")
+            expectedPath = Path.join(@rootPath, "test", "lib", "minitest_rails_test.rb")
+            expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
 
       describe "at /app/models", ->
         it "returns the filepath where the spec file is located", ->
