@@ -53,5 +53,5 @@ describe "PathFinder", ->
           expectedPath = Path.join(@rootPath, "spec", "controllers", "foo_spec.rb")
           expect(finder.findSpecPath(codePath)).toBe(expectedPath)
 
-  describe "::findCodePath", ->
+  describe "::findSourcePath", ->
     # TODO

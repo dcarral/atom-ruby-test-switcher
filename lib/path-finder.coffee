@@ -10,39 +10,39 @@ class PathFinder
   findSpecPath: (sourcePath) ->
     @findQuickSpecPath(sourcePath)
 
-  findCodePath: (sourcePath) ->
+  findSourcePath: (specPath) ->
     # TODO
 
   findQuickSpecPath: (sourcePath) ->
-    codeRelativizedPath = atom.project.relativizePath(sourcePath)
-    rootPath = codeRelativizedPath[0]
-    codeRelativePath = codeRelativizedPath[1]
+    sourceRelativizedPath = atom.project.relativizePath(sourcePath)
+    rootPath = sourceRelativizedPath[0]
+    sourceRelativePath = sourceRelativizedPath[1]
 
-    specFilenames = @specFilenames(codeRelativePath)
+    specFilenames = @specFilenames(sourceRelativePath)
 
-    quickRelativePaths = @findQuickRelativePaths(codeRelativePath)
+    quickRelativePaths = @findQuickRelativePaths(sourceRelativePath)
     quickPath = @findQuickPath(rootPath, quickRelativePaths, specFilenames)
     return quickPath if quickPath
 
-    quickRailsRelativePaths = @findQuickRailsRelativePaths(codeRelativePath)
+    quickRailsRelativePaths = @findQuickRailsRelativePaths(sourceRelativePath)
     railsQuickPath = @findQuickPath(rootPath, quickRailsRelativePaths, specFilenames)
     return railsQuickPath if railsQuickPath
 
-  findQuickRelativePaths: (codeRelativePath) ->
+  findQuickRelativePaths: (sourceRelativePath) ->
     _(@testFilesDirectories).map (testFilesDirectory) ->
-      sourceDirectories = path.dirname(codeRelativePath).split(path.sep)
+      sourceDirectories = path.dirname(sourceRelativePath).split(path.sep)
       sourceDirectories[0] = testFilesDirectory
       path.join.apply(null, sourceDirectories)
 
-  findQuickRailsRelativePaths: (codeRelativePath) ->
-    _(@findQuickRelativePaths(codeRelativePath)).map (quickDirectoryPath) ->
+  findQuickRailsRelativePaths: (sourceRelativePath) ->
+    _(@findQuickRelativePaths(sourceRelativePath)).map (quickDirectoryPath) ->
       quickDirectoryPathParts = quickDirectoryPath.split(path.sep)
       quickDirectoryPathParts.splice(1, 0, "lib")
       path.join.apply(null, quickDirectoryPathParts)
 
-  specFilenames: (codeRelativePath) ->
+  specFilenames: (sourceRelativePath) ->
     _(@testFilesSuffixes).map (testFileSuffix) ->
-      path.basename(codeRelativePath, ".rb") + testFileSuffix + ".rb"
+      path.basename(sourceRelativePath, ".rb") + testFileSuffix + ".rb"
 
   findQuickPath: (rootPath, candidateDirectories, specFilenames) ->
     _(specFilenames).chain()

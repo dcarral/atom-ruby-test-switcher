@@ -32,10 +32,10 @@ describe "BufferSwitcher", ->
         atom.workspace.open("/tmp/foo_spec.rb")
 
     describe "::switch", ->
-      it "invokes ::switchToCodeFile", ->
-        spyOn(switcher, "switchToCodeFile")
+      it "invokes ::switchToSourceFile", ->
+        spyOn(switcher, "switchToSourceFile")
         runs -> switcher.switch
-        expect(switcher.switchToCodeFile).toHaveBeenCalled
+        expect(switcher.switchToSourceFile).toHaveBeenCalled
 
     describe "::inRubyFile", ->
       it "returns true", ->
@@ -51,10 +51,10 @@ describe "BufferSwitcher", ->
         atom.workspace.open("/tmp/foo_test.rb")
 
     describe "::switch", ->
-      it "invokes ::switchToCodeFile", ->
-        spyOn(switcher, "switchToCodeFile")
+      it "invokes ::switchToSourceFile", ->
+        spyOn(switcher, "switchToSourceFile")
         runs -> switcher.switch
-        expect(switcher.switchToCodeFile).toHaveBeenCalled
+        expect(switcher.switchToSourceFile).toHaveBeenCalled
 
     describe "::inRubyFile", ->
       it "returns true", ->

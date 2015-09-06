@@ -7,7 +7,7 @@ class BufferSwitcher
 
   switch: ->
     if @inRubyTestFile()
-      @switchToCodeFile()
+      @switchToSourceFile()
     else if @inRubyFile()
       @switchToTestFile()
 
@@ -15,9 +15,9 @@ class BufferSwitcher
     specPath = @finder.findSpecPath(@currentPath())
     @switchToFile(specPath, "right") if new File(specPath).existsSync()
 
-  switchToCodeFile: ->
-    codePath = @finder.findCodePath(@currentPath())
-    @switchToFile(codePath, "left") if new File(codePath).existsSync()
+  switchToSourceFile: ->
+    sourcePath = @finder.findSourcePath(@currentPath())
+    @switchToFile(sourcePath, "left") if new File(sourcePath).existsSync()
 
   currentPath: ->
     atom.workspace.getActiveTextEditor().getPath()
