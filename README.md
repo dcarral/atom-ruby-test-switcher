@@ -1,4 +1,6 @@
-# ruby-test-switcher Atom package
+# ruby-test-switcher
+
+[![Build Status](https://travis-ci.org/dcarral/atom-ruby-test-switcher.svg?branch=master)](https://travis-ci.org/dcarral/atom-ruby-test-switcher)
 
 ruby-test-switcher is an Atom package which allows you to switch between Ruby source code and test files by simply pressing <kbd>ctrl</kbd>-<kbd>shift</kbd>-<kbd>.</kbd>
 
