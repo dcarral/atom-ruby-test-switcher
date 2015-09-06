@@ -22,10 +22,11 @@ describe "PathFinder", ->
           expectedPath = Path.join(@rootPath, "spec", "foo_spec.rb")
           expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
 
-        it "returns the filepath of a minitest/unit test file", ->
-          sourcePath = Path.join(@rootPath, "lib", "minitest.rb")
-          expectedPath = Path.join(@rootPath, "test", "minitest_test.rb")
-          expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
+        describe "with minitest/test-unit files", ->
+          it "returns the filepath where the spec file is located", ->
+            sourcePath = Path.join(@rootPath, "lib", "minitest.rb")
+            expectedPath = Path.join(@rootPath, "test", "minitest_test.rb")
+            expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
 
       describe "at /lib/foo", ->
         it "returns the filepath where the spec file is located", ->
@@ -40,7 +41,7 @@ describe "PathFinder", ->
           expectedPath = Path.join(@rootPath, "spec", "lib", "rails_spec.rb")
           expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
 
-        it "returns the filepath of a minitest/unit test file", ->
+        it "returns the filepath where the spec file is located", ->
           sourcePath = Path.join(@rootPath, "lib", "minitest_rails.rb")
           expectedPath = Path.join(@rootPath, "test", "lib", "minitest_rails_test.rb")
           expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
@@ -69,10 +70,11 @@ describe "PathFinder", ->
           expectedPath = Path.join(@rootPath, "lib", "foo.rb")
           expect(finder.findSourcePath(testPath)).toBe(expectedPath)
 
-        it "returns the filepath of a minitest/unit test file", ->
-          testPath = Path.join(@rootPath, "test", "minitest_test.rb")
-          expectedPath = Path.join(@rootPath, "lib", "minitest.rb")
-          expect(finder.findSourcePath(testPath)).toBe(expectedPath)
+        describe "with minitest/test-unit files", ->
+          it "returns the filepath where the source file is located", ->
+            testPath = Path.join(@rootPath, "test", "minitest_test.rb")
+            expectedPath = Path.join(@rootPath, "lib", "minitest.rb")
+            expect(finder.findSourcePath(testPath)).toBe(expectedPath)
 
       describe "at /lib/foo", ->
         it "returns the filepath where the source file is located", ->
