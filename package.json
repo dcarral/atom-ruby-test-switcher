@@ -3,7 +3,7 @@
   "author": "Daniel Carral",
   "main": "./lib/ruby-test-switcher",
   "version": "0.0.0",
-  "description": "Switch between code and test files with `ctrl-shift-`.",
+  "description": "Switch between Ruby source code and test files with a single keystroke",
   "activationHooks": ["language-ruby:grammar-used"],
   "keywords": [
   ],
