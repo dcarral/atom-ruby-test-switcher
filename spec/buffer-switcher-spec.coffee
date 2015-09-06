@@ -26,11 +26,10 @@ describe "BufferSwitcher", ->
       it "returns false", ->
         expect(switcher.inRubyTestFile()).toBeFalsy()
 
-  describe "when a test file is active", ->
+  describe "when a spec file is active", ->
     beforeEach ->
       waitsForPromise ->
-        atom.workspace.open("/tmp/foo_spec.rb").then ->
-          textEditor = atom.workspace.getActiveTextEditor()
+        atom.workspace.open("/tmp/foo_spec.rb")
 
     describe "::switch", ->
       it "invokes ::switchToCodeFile", ->
@@ -46,10 +45,21 @@ describe "BufferSwitcher", ->
       it "returns true", ->
         expect(switcher.inRubyTestFile()).toBeTruthy()
 
-  describe "::findSpecPath", ->
-    xit "returns the filepath where the spec file should be located", ->
-      # TODO
+  describe "when a test file is active", ->
+    beforeEach ->
+      waitsForPromise ->
+        atom.workspace.open("/tmp/foo_test.rb")
 
-  describe "::findCodePath", ->
-    xit "returns the filepath where the code file should be located", ->
-      # TODO
+    describe "::switch", ->
+      it "invokes ::switchToCodeFile", ->
+        spyOn(switcher, "switchToCodeFile")
+        runs -> switcher.switch
+        expect(switcher.switchToCodeFile).toHaveBeenCalled
+
+    describe "::inRubyFile", ->
+      it "returns true", ->
+        expect(switcher.inRubyFile()).toBeTruthy()
+
+    describe "::inRubyTestFile", ->
+      it "returns true", ->
+        expect(switcher.inRubyTestFile()).toBeTruthy()

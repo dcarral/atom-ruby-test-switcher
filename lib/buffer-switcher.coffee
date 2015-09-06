@@ -1,7 +1,10 @@
 {File} = require "atom"
+PathFinder = require "./path-finder"
 
 module.exports =
 class BufferSwitcher
+  finder: new PathFinder
+
   switch: ->
     if @inRubyTestFile()
       @switchToCodeFile()
@@ -9,20 +12,12 @@ class BufferSwitcher
       @switchToTestFile()
 
   switchToTestFile: ->
-    specPath = @findSpecPath(@currentPath())
-
-    specFile = new File(specPath)
-    return unless specFile.existsSync()
-
-    @openFile(specPath, "right")
+    specPath = @finder.findSpecPath(@currentPath())
+    @switchToFile(specPath, "right") if new File(specPath).existsSync()
 
   switchToCodeFile: ->
-    codePath = @findCodePath(@currentPath())
-
-    codeFile = new File(codeFile)
-    return unless codeFile.existsSync()
-
-    @openFile(codePath, "left")
+    codePath = @finder.findCodePath(@currentPath())
+    @switchToFile(codePath, "left") if new File(codePath).existsSync()
 
   currentPath: ->
     atom.workspace.getActiveTextEditor().getPath()
@@ -31,15 +26,9 @@ class BufferSwitcher
     @currentPath().endsWith(".rb")
 
   inRubyTestFile: ->
-    @currentPath().endsWith("_spec.rb")
+    @currentPath().endsWith("_spec.rb") || @currentPath().endsWith("_test.rb")
 
-  findSpecPath: (currentPath) ->
-    # TODO
-
-  findCodePath: (currentPath) ->
-    # TODO
-
-  openFile: (filepath, splitDirection) ->
+  switchToFile: (filepath, splitDirection) ->
     atom.workspace.open(filepath, {
       split: splitDirection,
       searchAllPanes: true
