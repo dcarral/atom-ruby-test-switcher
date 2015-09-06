@@ -31,9 +31,13 @@ class PathFinder
     testRelativePath = @getRelativePath(testPath)
     sourceFilename = @getSourceFilename(testRelativePath)
 
-    quickRelativePath = @findQuickSourceRelativePath(testRelativePath)
+    quickRelativePath = @findQuickSourceRelativePath(testRelativePath, false)
     quickPath = @findQuickPath(rootPath, [quickRelativePath], [sourceFilename])
     return quickPath if quickPath
+
+    quickRailsRelativePaths = @findQuickRailsSourceRelativePaths(testRelativePath)
+    railsQuickPath = @findQuickPath(rootPath, quickRailsRelativePaths, [sourceFilename])
+    return railsQuickPath if railsQuickPath
 
   findQuickTestRelativePaths: (sourceRelativePath) ->
     _(@testFilesDirectories).map (testFilesDirectory) ->
@@ -47,10 +51,21 @@ class PathFinder
       quickDirectoryPathParts.splice(1, 0, "lib")
       path.join.apply(null, quickDirectoryPathParts)
 
-  findQuickSourceRelativePath: (testRelativePath) ->
+  findQuickSourceRelativePath: (testRelativePath, forRailsProject) ->
     testDirectories = path.dirname(testRelativePath).split(path.sep)
-    testDirectories[0] = "lib"
+    if forRailsProject
+      testDirectories[0] = "lib"
+    else
+      testDirectories[0] = "app"
     path.join.apply(null, testDirectories)
+
+  findQuickRailsSourceRelativePaths: (testRelativePath) ->
+    quickDirectoryPathParts = @findQuickSourceRelativePath(testRelativePath).split(path.sep)
+    quickLibDirectoryPathParts = quickDirectoryPathParts.slice(1)
+
+    lib_path = path.join.apply(null, quickLibDirectoryPathParts)
+    app_path = @findQuickSourceRelativePath(testRelativePath, true)
+    [lib_path, app_path]
 
   specFilenames: (sourceRelativePath) ->
     _(@testFilesSuffixes).map (testFileSuffix) ->
