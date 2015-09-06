@@ -6,10 +6,14 @@ It supports RSpec, minitest and test-unit, both for Rails and non-Rails projects
 
 Inspired by the awesome [Sublime Text 2 Ruby Tests](https://github.com/maltize/sublime-text-2-ruby-tests) plugin.
 
-## Contributing
+## Installation
 
-- [Pull requests](https://github.com/dcarral/atom-ruby-test-switcher/pulls) (bonus point for topic branches)
-- [Issues](https://github.com/dcarral/atom-ruby-test-switcher/issues)
+```
+$ apm install ruby-test-switcher
+```
+Or Settings/Preferences ➔ Packages ➔ search for `ruby-test-switcher`
+
+Atom Package: https://atom.io/packages/ruby-test-switcher
 
 ## FAQ
 
@@ -25,3 +29,8 @@ Not at the moment, since:
 __ruby-test-switcher will be supported as a standalone-package__, thus allowing to use it along your favorite test runner ;)
 
 Besides that, the idea is to somehow integrate this switching feature within some of this packages. So, ideally you won't need an extra-package to switch between code and test files.
+
+## Contributing
+
+- [Pull requests](https://github.com/dcarral/atom-ruby-test-switcher/pulls) (bonus point for topic branches)
+- [Issues](https://github.com/dcarral/atom-ruby-test-switcher/issues)
