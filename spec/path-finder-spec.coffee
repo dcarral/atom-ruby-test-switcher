@@ -58,6 +58,10 @@ describe "PathFinder", ->
           expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
 
   describe "::findSourcePath", ->
+    it "returns undefined if there aren't source files for that test file", ->
+      testPath = Path.join(@rootPath, "spec", "without_source_spec.rb")
+      expect(finder.findSourcePath(testPath)).toBe(undefined)
+
     describe "with non-Rails projects", ->
       describe "at /lib", ->
         it "returns the filepath where the source file is located", ->
