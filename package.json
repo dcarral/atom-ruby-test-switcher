@@ -2,10 +2,18 @@
   "name": "ruby-test-switcher",
   "author": "Daniel Carral",
   "main": "./lib/ruby-test-switcher",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Switch between Ruby source code and test files with a single keystroke",
-  "activationHooks": ["language-ruby:grammar-used"],
+  "activationHooks": [
+    "language-ruby:grammar-used"
+  ],
   "keywords": [
+    "ruby",
+    "test",
+    "rspec",
+    "spec",
+    "tdd",
+    "bdd"
   ],
   "activationCommands": {
     "atom-workspace": "ruby-test-switcher:switch"
@@ -17,13 +25,5 @@
   },
   "dependencies": {
     "underscore": ">=1.8.3"
-  },
-  "keywords": [
-    "ruby",
-    "test",
-    "rspec",
-    "spec",
-    "tdd",
-    "bdd"
-  ]
+  }
 }
