@@ -6,7 +6,7 @@ describe "BufferSwitcher", ->
   beforeEach ->
     switcher = new BufferSwitcher
 
-  describe "when a code file is active", ->
+  describe "when a source code file is active", ->
     beforeEach ->
       waitsForPromise ->
         atom.workspace.open("/tmp/foo.rb").then ->
