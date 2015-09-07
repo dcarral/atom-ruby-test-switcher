@@ -1,6 +1,13 @@
+## 1.0.2
+
+* Add platform specific key bindings
+* Reword menu labels
+* Fix typos and erratum in the README
+
 ## 1.0.1
 
-* Add Travis CI build status and installation instructions to README
+* Add Travis CI build status to the README
+* Add installation instructions to the README
 
 ## 1.0.0
 
