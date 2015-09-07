@@ -11,9 +11,10 @@ describe "PathFinder", ->
       atom.workspace.open(@rootPath)
 
   describe "::findSpecPath", ->
-    it "returns undefined if there aren't spec files for that source code", ->
-      sourcePath = path.join(@rootPath, "lib", "without_tests.rb")
-      expect(finder.findSpecPath(sourcePath)).toBe(undefined)
+    describe "with a source code filepath without related test file", ->
+      it "returns undefined", ->
+        sourcePath = path.join(@rootPath, "lib", "without_tests.rb")
+        expect(finder.findSpecPath(sourcePath)).toBeUndefined()
 
     describe "with non-Rails projects", ->
       describe "at /lib", ->
@@ -60,9 +61,10 @@ describe "PathFinder", ->
           expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
 
   describe "::findSourcePath", ->
-    it "returns undefined if there aren't source files for that test file", ->
-      testPath = path.join(@rootPath, "spec", "without_source_spec.rb")
-      expect(finder.findSourcePath(testPath)).toBe(undefined)
+    describe "with a source code filepath without related test file", ->
+      it "returns undefined", ->
+        testPath = path.join(@rootPath, "spec", "without_source_spec.rb")
+        expect(finder.findSourcePath(testPath)).toBeUndefined()
 
     describe "with non-Rails projects", ->
       describe "at /lib", ->
