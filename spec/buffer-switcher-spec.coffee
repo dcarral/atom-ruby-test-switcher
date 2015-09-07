@@ -9,14 +9,13 @@ describe "BufferSwitcher", ->
   describe "when a source code file is active", ->
     beforeEach ->
       waitsForPromise ->
-        atom.workspace.open("/tmp/foo.rb").then ->
-          textEditor = atom.workspace.getActiveTextEditor()
+        atom.workspace.open("/tmp/foo.rb")
 
     describe "::switch", ->
       it "invokes ::switchToTestFile", ->
         spyOn(switcher, "switchToTestFile")
-        runs -> switcher.switch
-        expect(switcher.switchToTestFile).toHaveBeenCalled
+        switcher.switch()
+        expect(switcher.switchToTestFile).toHaveBeenCalled()
 
     describe "::inRubyFile", ->
       it "returns true", ->
@@ -34,8 +33,8 @@ describe "BufferSwitcher", ->
     describe "::switch", ->
       it "invokes ::switchToSourceFile", ->
         spyOn(switcher, "switchToSourceFile")
-        runs -> switcher.switch
-        expect(switcher.switchToSourceFile).toHaveBeenCalled
+        switcher.switch()
+        expect(switcher.switchToSourceFile).toHaveBeenCalled()
 
     describe "::inRubyFile", ->
       it "returns true", ->
@@ -45,7 +44,7 @@ describe "BufferSwitcher", ->
       it "returns true", ->
         expect(switcher.inRubyTestFile()).toBeTruthy()
 
-  describe "when a test file is active", ->
+  describe "when a minitest/test-unit test file is active", ->
     beforeEach ->
       waitsForPromise ->
         atom.workspace.open("/tmp/foo_test.rb")
@@ -53,8 +52,8 @@ describe "BufferSwitcher", ->
     describe "::switch", ->
       it "invokes ::switchToSourceFile", ->
         spyOn(switcher, "switchToSourceFile")
-        runs -> switcher.switch
-        expect(switcher.switchToSourceFile).toHaveBeenCalled
+        switcher.switch()
+        expect(switcher.switchToSourceFile).toHaveBeenCalled()
 
     describe "::inRubyFile", ->
       it "returns true", ->
