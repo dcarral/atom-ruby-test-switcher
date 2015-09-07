@@ -13,11 +13,11 @@ class BufferSwitcher
 
   switchToTestFile: ->
     testPath = @finder.findTestPath(@currentPath())
-    @switchToFile(testPath, "right") if new File(testPath).existsSync()
+    @switchToFile(testPath, "right") if testPath
 
   switchToSourceFile: ->
     sourcePath = @finder.findSourcePath(@currentPath())
-    @switchToFile(sourcePath, "left") if new File(sourcePath).existsSync()
+    @switchToFile(sourcePath, "left") if sourcePath
 
   currentPath: ->
     atom.workspace.getActiveTextEditor().getPath()
@@ -29,7 +29,4 @@ class BufferSwitcher
     @currentPath().endsWith("_spec.rb") || @currentPath().endsWith("_test.rb")
 
   switchToFile: (filepath, splitDirection) ->
-    atom.workspace.open(filepath, {
-      split: splitDirection,
-      searchAllPanes: true
-    })
+    atom.workspace.open(filepath, split: splitDirection, searchAllPanes: true)
