@@ -7,7 +7,7 @@ class PathFinder
   testFilesDirectories: ["spec", "test"]
   testFilesSuffixes: ["_spec", "_test"]
 
-  findSpecPath: (sourcePath) ->
+  findTestPath: (sourcePath) ->
     @findQuickSpecPath(sourcePath)
 
   findSourcePath: (testPath) ->

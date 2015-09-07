@@ -10,55 +10,55 @@ describe "PathFinder", ->
     waitsForPromise ->
       atom.workspace.open(@rootPath)
 
-  describe "::findSpecPath", ->
+  describe "::findTestPath", ->
     describe "with a source code filepath without related test file", ->
       it "returns undefined", ->
         sourcePath = path.join(@rootPath, "lib", "without_tests.rb")
-        expect(finder.findSpecPath(sourcePath)).toBeUndefined()
+        expect(finder.findTestPath(sourcePath)).toBeUndefined()
 
     describe "with non-Rails projects", ->
       describe "at /lib", ->
         it "returns the filepath where the spec file is located", ->
           sourcePath = path.join(@rootPath, "lib", "foo.rb")
           expectedPath = path.join(@rootPath, "spec", "foo_spec.rb")
-          expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
+          expect(finder.findTestPath(sourcePath)).toBe(expectedPath)
 
         describe "with minitest/test-unit files", ->
           it "returns the filepath where the spec file is located", ->
             sourcePath = path.join(@rootPath, "lib", "minitest.rb")
             expectedPath = path.join(@rootPath, "test", "minitest_test.rb")
-            expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
+            expect(finder.findTestPath(sourcePath)).toBe(expectedPath)
 
       describe "at /lib/foo", ->
         it "returns the filepath where the spec file is located", ->
           sourcePath = path.join(@rootPath, "lib", "foo", "bar.rb")
           expectedPath = path.join(@rootPath, "spec", "foo", "bar_spec.rb")
-          expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
+          expect(finder.findTestPath(sourcePath)).toBe(expectedPath)
 
     describe "with Rails projects", ->
       describe "at /lib", ->
         it "returns the filepath where the spec file is located", ->
           sourcePath = path.join(@rootPath, "lib", "rails.rb")
           expectedPath = path.join(@rootPath, "spec", "lib", "rails_spec.rb")
-          expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
+          expect(finder.findTestPath(sourcePath)).toBe(expectedPath)
 
         describe "with minitest/test-unit files", ->
           it "returns the filepath where the spec file is located", ->
             sourcePath = path.join(@rootPath, "lib", "minitest_rails.rb")
             expectedPath = path.join(@rootPath, "test", "lib", "minitest_rails_test.rb")
-            expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
+            expect(finder.findTestPath(sourcePath)).toBe(expectedPath)
 
       describe "at /app/models", ->
         it "returns the filepath where the spec file is located", ->
           sourcePath = path.join(@rootPath, "app", "models", "foo.rb")
           expectedPath = path.join(@rootPath, "spec", "models", "foo_spec.rb")
-          expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
+          expect(finder.findTestPath(sourcePath)).toBe(expectedPath)
 
       describe "at /app/controllers", ->
         it "returns the filepath where the spec file is located", ->
           sourcePath = path.join(@rootPath, "app", "controllers", "foo.rb")
           expectedPath = path.join(@rootPath, "spec", "controllers", "foo_spec.rb")
-          expect(finder.findSpecPath(sourcePath)).toBe(expectedPath)
+          expect(finder.findTestPath(sourcePath)).toBe(expectedPath)
 
   describe "::findSourcePath", ->
     describe "with a source code filepath without related test file", ->
