@@ -1,4 +1,3 @@
-{File} = require "atom"
 PathFinder = require "./path-finder"
 
 module.exports =
