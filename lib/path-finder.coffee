@@ -16,7 +16,7 @@ class PathFinder
   findQuickTestPath: (sourcePath) ->
     rootPath = @getProjectRootPath(sourcePath)
     sourceRelativePath = @getRelativePath(sourcePath)
-    testFilenames = @testFilenames(sourceRelativePath)
+    testFilenames = @getTestFilenameCandidates(sourceRelativePath)
 
     quickRelativePaths = @findQuickTestRelativePaths(sourceRelativePath)
     quickPath = @findQuickPath(rootPath, quickRelativePaths, testFilenames)
@@ -67,15 +67,16 @@ class PathFinder
     app_path = @findQuickSourceRelativePath(testRelativePath, true)
     [lib_path, app_path]
 
-  testFilenames: (sourceRelativePath) ->
+  getTestFilenameCandidates: (sourceRelativePath) ->
+    sourceBasename = path.basename(sourceRelativePath, ".rb")
     _(@testFilesSuffixes).map (testFileSuffix) ->
-      path.basename(sourceRelativePath, ".rb") + testFileSuffix + ".rb"
+      sourceBasename + testFileSuffix + ".rb"
 
   getSourceFilename: (testRelativePath) ->
     testBasename = path.basename(testRelativePath, ".rb")
-    testFileSuffix = _(@testFilesSuffixes).find (suffix) ->
+    testSuffix = _(@testFilesSuffixes).find (suffix) ->
       testBasename.includes(suffix)
-    testBasename.replace(testFileSuffix, "") + ".rb"
+    testBasename.replace(testSuffix, "") + ".rb"
 
   findQuickPath: (rootPath, candidateDirectories, candidateFilenames) ->
     _(candidateFilenames).chain()
@@ -83,8 +84,8 @@ class PathFinder
         _(candidateDirectories).map (candidateDirectory) ->
           path.join(rootPath, candidateDirectory, candidateFilename)
       .flatten()
-      .find (quickPath) ->
-        new File(quickPath).existsSync()
+      .find (candidatePath) ->
+        new File(candidatePath).existsSync()
       .value()
 
   getProjectRootPath: (fullPath) ->
