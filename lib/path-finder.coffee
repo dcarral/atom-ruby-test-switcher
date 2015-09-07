@@ -8,22 +8,22 @@ class PathFinder
   testFilesSuffixes: ["_spec", "_test"]
 
   findTestPath: (sourcePath) ->
-    @findQuickSpecPath(sourcePath)
+    @findQuickTestPath(sourcePath)
 
   findSourcePath: (testPath) ->
     @findQuickSourcePath(testPath)
 
-  findQuickSpecPath: (sourcePath) ->
+  findQuickTestPath: (sourcePath) ->
     rootPath = @getProjectRootPath(sourcePath)
     sourceRelativePath = @getRelativePath(sourcePath)
-    specFilenames = @specFilenames(sourceRelativePath)
+    testFilenames = @testFilenames(sourceRelativePath)
 
     quickRelativePaths = @findQuickTestRelativePaths(sourceRelativePath)
-    quickPath = @findQuickPath(rootPath, quickRelativePaths, specFilenames)
+    quickPath = @findQuickPath(rootPath, quickRelativePaths, testFilenames)
     return quickPath if quickPath
 
     quickRailsRelativePaths = @findQuickRailsTestRelativePaths(sourceRelativePath)
-    railsQuickPath = @findQuickPath(rootPath, quickRailsRelativePaths, specFilenames)
+    railsQuickPath = @findQuickPath(rootPath, quickRailsRelativePaths, testFilenames)
     return railsQuickPath if railsQuickPath
 
   findQuickSourcePath: (testPath) ->
@@ -67,7 +67,7 @@ class PathFinder
     app_path = @findQuickSourceRelativePath(testRelativePath, true)
     [lib_path, app_path]
 
-  specFilenames: (sourceRelativePath) ->
+  testFilenames: (sourceRelativePath) ->
     _(@testFilesSuffixes).map (testFileSuffix) ->
       path.basename(sourceRelativePath, ".rb") + testFileSuffix + ".rb"
 

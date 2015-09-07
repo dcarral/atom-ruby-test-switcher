@@ -12,8 +12,8 @@ class BufferSwitcher
       @switchToTestFile()
 
   switchToTestFile: ->
-    specPath = @finder.findSpecPath(@currentPath())
-    @switchToFile(specPath, "right") if new File(specPath).existsSync()
+    testPath = @finder.findTestPath(@currentPath())
+    @switchToFile(testPath, "right") if new File(testPath).existsSync()
 
   switchToSourceFile: ->
     sourcePath = @finder.findSourcePath(@currentPath())

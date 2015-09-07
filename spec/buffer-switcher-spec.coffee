@@ -26,7 +26,7 @@ describe "BufferSwitcher", ->
       it "returns false", ->
         expect(switcher.inRubyTestFile()).toBeFalsy()
 
-  describe "when a spec file is active", ->
+  describe "when a test file is active", ->
     beforeEach ->
       waitsForPromise ->
         atom.workspace.open("/tmp/foo_spec.rb")

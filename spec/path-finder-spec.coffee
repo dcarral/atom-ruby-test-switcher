@@ -18,7 +18,7 @@ describe "PathFinder", ->
 
     describe "with non-Rails projects", ->
       describe "at /lib", ->
-        it "returns the filepath where the spec file is located", ->
+        it "returns the related test filepath", ->
           sourcePath = path.join(@rootPath, "lib", "foo.rb")
           expectedPath = path.join(@rootPath, "spec", "foo_spec.rb")
           expect(finder.findTestPath(sourcePath)).toBe(expectedPath)
