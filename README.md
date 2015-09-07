@@ -2,7 +2,10 @@
 
 [![Build Status](https://travis-ci.org/dcarral/atom-ruby-test-switcher.svg?branch=master)](https://travis-ci.org/dcarral/atom-ruby-test-switcher)
 
-__ruby-test-switcher__ is an Atom package which allows you to switch between Ruby source code and test files by simply pressing <kbd>ctrl</kbd>-<kbd>shift</kbd>-<kbd>.</kbd>
+__ruby-test-switcher__ is an Atom package which allows you to switch between Ruby source code and test files with a single keystroke:
+
+- Linux: <kbd>ctrl</kbd>-<kbd>shift</kbd>-<kbd>.</kbd>
+- OS X:  <kbd>cmd</kbd>-<kbd>ctrl</kbd>-<kbd>.</kbd>
 
 It supports RSpec, minitest and test-unit, both for Rails and non-Rails projects.
 
@@ -30,7 +33,7 @@ Not at the moment, since:
 
 __ruby-test-switcher__ will be supported as a standalone package, thus allowing you to use it along your favorite test runner ;)
 
-Besides that, the idea is to somehow integrate this switching feature within some of this packages. So, ideally you won't need an extra-package to switch between code and test files.
+Besides that, the idea is to integrate this feature within some of the test runners above. So, ideally you won't need an extra package to switch between code and test files.
 
 ## Contributing
 
