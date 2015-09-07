@@ -13,7 +13,7 @@ Inspired by the awesome [Sublime Text 2 Ruby Tests](https://github.com/maltize/s
 ```
 $ apm install ruby-test-switcher
 ```
-Or Settings/Preferences ➔ Packages ➔ search for `ruby-test-switcher`
+Or Settings/Preferences ➔ Install ➔ search for `ruby-test-switcher`
 
 Atom Package: https://atom.io/packages/ruby-test-switcher
 
