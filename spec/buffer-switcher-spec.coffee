@@ -70,3 +70,36 @@ describe "BufferSwitcher", ->
     describe "::inRubyTestFile", ->
       it "returns true", ->
         expect(switcher.inRubyTestFile()).toBeTruthy()
+    describe "::switchToTestFile", ->
+      describe "when a test file path is found", ->
+        it "invokes ::switchToFile", ->
+          spyOn(@finder, "findTestPath").andReturn("whatever")
+          switcher = new BufferSwitcher(@finder, @mockEditor)
+          spyOn(switcher, "switchToFile")
+          switcher.switchToTestFile()
+          expect(switcher.switchToFile).toHaveBeenCalled()
+
+      describe "when a test file path isn't found", ->
+        it "doesn't invoke ::switchToFile", ->
+          spyOn(@finder, "findTestPath").andReturn(undefined)
+          switcher = new BufferSwitcher(@finder, @mockEditor)
+          spyOn(switcher, "switchToFile")
+          switcher.switchToTestFile()
+          expect(switcher.switchToFile).not.toHaveBeenCalled()
+
+    describe "::switchToSourceFile", ->
+      describe "when a source file path is found", ->
+        it "invokes ::switchToFile", ->
+          spyOn(@finder, "findSourcePath").andReturn("whatever")
+          switcher = new BufferSwitcher(@finder, @mockEditor)
+          spyOn(switcher, "switchToFile")
+          switcher.switchToSourceFile()
+          expect(switcher.switchToFile).toHaveBeenCalled()
+
+      describe "when a source file path isn't found", ->
+        it "doesn't invoke ::switchToFile", ->
+          spyOn(@finder, "findSourcePath").andReturn(undefined)
+          switcher = new BufferSwitcher(@finder, @mockEditor)
+          spyOn(switcher, "switchToFile")
+          switcher.switchToSourceFile()
+          expect(switcher.switchToFile).not.toHaveBeenCalled()
