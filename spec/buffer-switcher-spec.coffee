@@ -1,15 +1,19 @@
 BufferSwitcher = require "../lib/buffer-switcher"
+PathFinder = require "../lib/path-finder"
 
 describe "BufferSwitcher", ->
   [switcher] = []
 
   beforeEach ->
-    switcher = new BufferSwitcher
+    @finder = new PathFinder()
+    @mockEditor = jasmine.createSpyObj("editor", ["getPath"])
 
   describe "when a source code file is active", ->
     beforeEach ->
       waitsForPromise ->
-        atom.workspace.open("/tmp/foo.rb")
+        atom.workspace.open("/tmp/foo.rb").then ->
+          editor = atom.workspace.getActiveTextEditor()
+          switcher = new BufferSwitcher(@finder, editor)
 
     describe "::switch", ->
       it "invokes ::switchToTestFile", ->
@@ -28,7 +32,9 @@ describe "BufferSwitcher", ->
   describe "when a test file is active", ->
     beforeEach ->
       waitsForPromise ->
-        atom.workspace.open("/tmp/foo_spec.rb")
+        atom.workspace.open("/tmp/foo_spec.rb").then ->
+          editor = atom.workspace.getActiveTextEditor()
+          switcher = new BufferSwitcher(@finder, editor)
 
     describe "::switch", ->
       it "invokes ::switchToSourceFile", ->
@@ -47,7 +53,9 @@ describe "BufferSwitcher", ->
   describe "when a minitest/test-unit test file is active", ->
     beforeEach ->
       waitsForPromise ->
-        atom.workspace.open("/tmp/foo_test.rb")
+        atom.workspace.open("/tmp/foo_test.rb").then ->
+          editor = atom.workspace.getActiveTextEditor()
+          switcher = new BufferSwitcher(@finder, editor)
 
     describe "::switch", ->
       it "invokes ::switchToSourceFile", ->

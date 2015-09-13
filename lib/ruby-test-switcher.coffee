@@ -13,7 +13,11 @@ module.exports = RubyTestSwitcher =
     @subscriptions.dispose()
 
   switch: ->
-    @switcher().switch()
+    @switcher().switch() if @editor()
 
   switcher: ->
-    new BufferSwitcher
+    finder = new PathFinder()
+    new BufferSwitcher(finder, @editor())
+
+  editor: ->
+    atom.workspace.getActiveTextEditor()

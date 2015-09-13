@@ -2,7 +2,8 @@ PathFinder = require "./path-finder"
 
 module.exports =
 class BufferSwitcher
-  finder: new PathFinder
+  constructor: (@finder, @editor) ->
+    @currentPath = @editor.getPath()
 
   switch: ->
     if @inRubyTestFile()
@@ -11,23 +12,18 @@ class BufferSwitcher
       @switchToTestFile()
 
   switchToTestFile: ->
-    testPath = @finder.findTestPath(@getCurrentPath())
+    testPath = @finder.findTestPath(@currentPath)
     @switchToFile(testPath, "right") if testPath
 
   switchToSourceFile: ->
-    sourcePath = @finder.findSourcePath(@getCurrentPath())
+    sourcePath = @finder.findSourcePath(@currentPath)
     @switchToFile(sourcePath, "left") if sourcePath
 
-  getCurrentPath: ->
-    atom.workspace.getActiveTextEditor().getPath()
-
   inRubyFile: ->
-    currentPath = @getCurrentPath()
-    currentPath.endsWith(".rb")
+    @currentPath.endsWith(".rb")
 
   inRubyTestFile: ->
-    currentPath = @getCurrentPath()
-    currentPath.endsWith("_spec.rb") || currentPath.endsWith("_test.rb")
+    @currentPath.endsWith("_spec.rb") || @currentPath.endsWith("_test.rb")
 
   switchToFile: (filepath, splitDirection) ->
     atom.workspace.open(filepath, split: splitDirection, searchAllPanes: true)
