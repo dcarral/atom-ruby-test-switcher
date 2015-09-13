@@ -1,3 +1,7 @@
+## 1.0.3
+
+* Prevent switch attempts without an active text editor
+
 ## 1.0.2
 
 * Add platform specific key bindings
