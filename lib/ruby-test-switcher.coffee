@@ -1,5 +1,6 @@
 {CompositeDisposable} = require "atom"
 BufferSwitcher = require "./buffer-switcher"
+PathFinder = require "./path-finder"
 
 module.exports = RubyTestSwitcher =
   subscriptions: null
