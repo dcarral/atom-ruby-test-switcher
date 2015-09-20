@@ -13,7 +13,7 @@
     "rspec",
     "spec",
     "tdd",
-    "bdd"
+    "rails"
   ],
   "activationCommands": {
     "atom-workspace": "ruby-test-switcher:switch"
