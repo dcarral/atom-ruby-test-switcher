@@ -1,12 +1,10 @@
 RubyTestSwitcher = require "../lib/ruby-test-switcher"
 BufferSwitcher = require "../lib/buffer-switcher"
-PathFinder = require "../lib/path-finder"
 
 describe "RubyTestSwitcher", ->
   [workspaceElement, activationPromise] = []
 
   beforeEach ->
-    finder = new PathFinder()
     workspaceElement = atom.views.getView(atom.workspace)
     activationPromise = atom.packages.activatePackage("ruby-test-switcher")
 
@@ -31,7 +29,6 @@ describe "RubyTestSwitcher", ->
         switcher = jasmine.createSpyObj("switcher", ["switch"])
         spyOn(RubyTestSwitcher, "switcher").andCallFake ->
           switcher
-
         atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch")
 
         waitsForPromise ->
