@@ -2,7 +2,7 @@
   'atom-text-editor': [
     {
       'label': 'Switch between code and test'
-      'command': 'ruby-test-switcher:switch'
+      'command': 'ruby-test-switcher:switch-without-split'
     }
   ]
 'menu': [
@@ -13,7 +13,7 @@
       'submenu': [
         {
           'label': 'Switch between code and test'
-          'command': 'ruby-test-switcher:switch'
+          'command': 'ruby-test-switcher:switch-without-split'
         }
       ]
     ]
