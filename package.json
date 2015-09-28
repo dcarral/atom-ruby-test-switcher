@@ -16,7 +16,7 @@
     "rails"
   ],
   "activationCommands": {
-    "atom-workspace": "ruby-test-switcher:switch"
+    "atom-workspace": ["ruby-test-switcher:switch", "ruby-test-switcher:switch-without-split"]
   },
   "repository": "https://github.com/dcarral/atom-ruby-test-switcher",
   "license": "MIT",
