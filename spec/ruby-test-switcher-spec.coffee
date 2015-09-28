@@ -4,13 +4,14 @@ RubyTestSwitcher = require "../lib/ruby-test-switcher"
 BufferSwitcher = require "../lib/buffer-switcher"
 
 describe "RubyTestSwitcher", ->
-  [workspaceElement, activationPromise, sourcePath, testPath] = []
+  [workspaceElement, sourcePath, testPath] = []
 
   beforeEach ->
     workspaceElement = atom.views.getView(atom.workspace)
-    activationPromise = atom.packages.activatePackage("ruby-test-switcher")
     sourcePath = path.join(__dirname, "fixtures", "app", "models", "foo.rb")
     testPath = path.join(__dirname, "fixtures", "spec", "models", "foo_spec.rb")
+    waitsForPromise ->
+      atom.packages.activatePackage("ruby-test-switcher")
 
   describe "when the ruby-test-switcher:switch event is triggered", ->
     describe "with an active text editor", ->
@@ -21,8 +22,6 @@ describe "RubyTestSwitcher", ->
       it "switches to the spec file splitting pane", ->
         atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch")
 
-        waitsFor ->
-          activationPromise
         waitsFor ->
           atom.workspace.getActiveTextEditor() != undefined
 
@@ -48,8 +47,6 @@ describe "RubyTestSwitcher", ->
     it "switches to the spec file without splitting pane", ->
       atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch-without-split")
 
-      waitsFor ->
-        activationPromise
       waitsFor ->
         atom.workspace.getActiveTextEditor().getPath() != sourcePath
 
