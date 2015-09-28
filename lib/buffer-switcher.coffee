@@ -1,9 +1,11 @@
+_ = require "underscore"
 PathFinder = require "./path-finder"
 
 module.exports =
 class BufferSwitcher
-  constructor: (@finder, @editor) ->
+  constructor: (@finder, @editor, opts = {}) ->
     @currentPath = @editor.getPath()
+    @splitEnabled = opts.split
 
   switch: ->
     if @inRubyTestFile()
@@ -26,4 +28,11 @@ class BufferSwitcher
     @currentPath.endsWith("_spec.rb") || @currentPath.endsWith("_test.rb")
 
   switchToFile: (filepath, splitDirection) ->
-    atom.workspace.open(filepath, split: splitDirection, searchAllPanes: true)
+    base_options = searchAllPanes: true
+
+    if @splitEnabled
+      options = _(base_options).extend({split: splitDirection})
+    else
+      options = base_options
+
+    atom.workspace.open(filepath, options)

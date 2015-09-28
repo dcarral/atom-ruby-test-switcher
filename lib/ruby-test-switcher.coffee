@@ -9,16 +9,25 @@ module.exports = RubyTestSwitcher =
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.commands.add "atom-workspace",
      "ruby-test-switcher:switch": => @switch()
+    @subscriptions.add atom.commands.add "atom-workspace",
+     "ruby-test-switcher:switch-without-split": => @switchWithoutSplit()
 
   deactivate: ->
     @subscriptions.dispose()
 
   switch: ->
+    if @editor()
+      switcher = @switcher(split: true)
+      switcher.switch()
+
+  switchWithoutSplit: ->
     @switcher().switch() if @editor()
 
-  switcher: ->
-    finder = new PathFinder()
-    new BufferSwitcher(finder, @editor())
+  switcher: (opts = {}) ->
+    new BufferSwitcher(@pathFinder(), @editor(), opts)
 
   editor: ->
     atom.workspace.getActiveTextEditor()
+
+  pathFinder: ->
+    new PathFinder()
