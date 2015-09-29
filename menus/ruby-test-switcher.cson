@@ -3,6 +3,10 @@
     {
       'label': 'Switch between code and test'
       'command': 'ruby-test-switcher:switch-without-split'
+    },
+    {
+      'label': 'Switch between code and test (splitting)'
+      'command': 'ruby-test-switcher:switch'
     }
   ]
 'menu': [
@@ -14,6 +18,10 @@
         {
           'label': 'Switch between code and test'
           'command': 'ruby-test-switcher:switch-without-split'
+        },
+        {
+          'label': 'Switch between code and test (splitting)'
+          'command': 'ruby-test-switcher:switch'
         }
       ]
     ]
