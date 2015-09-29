@@ -1,9 +1,15 @@
 # ruby-test-switcher
+https://atom.io/packages/ruby-test-switcher
 
 [![Build Status](https://travis-ci.org/dcarral/atom-ruby-test-switcher.svg?branch=master)](https://travis-ci.org/dcarral/atom-ruby-test-switcher)
 
-__ruby-test-switcher__ is an Atom package which allows you to switch between Ruby source code and test files with a single keystroke:
+__ruby-test-switcher__ is an Atom package which allows users to switch between Ruby source code and test files with a single keystroke. Default key bindings are:
 
+To switch without splitting panes:
+- Linux: <kbd>ctrl</kbd>-<kbd>.</kbd>
+- OS X:  <kbd>cmd</kbd>-<kbd>.</kbd>
+
+To switch splitting panes:
 - Linux: <kbd>ctrl</kbd>-<kbd>shift</kbd>-<kbd>.</kbd>
 - OS X:  <kbd>cmd</kbd>-<kbd>ctrl</kbd>-<kbd>.</kbd>
 
@@ -17,8 +23,6 @@ Inspired by the awesome [Sublime Text 2 Ruby Tests](https://github.com/maltize/s
 $ apm install ruby-test-switcher
 ```
 Or Settings/Preferences ➔ Install ➔ search for `ruby-test-switcher`
-
-Atom Package: https://atom.io/packages/ruby-test-switcher
 
 ## FAQ
 
