@@ -1,3 +1,7 @@
+## 1.1.0 (unreleased)
+
+* Add support to switch files without splitting panes
+
 ## 1.0.3
 
 * Prevent switch attempts without an active text editor
