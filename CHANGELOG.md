@@ -1,4 +1,4 @@
-## 1.1.0 (unreleased)
+## 1.1.0
 
 * Add support to switch files without splitting panes
 
