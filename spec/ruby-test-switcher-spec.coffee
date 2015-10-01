@@ -4,7 +4,7 @@ RubyTestSwitcher = require "../lib/ruby-test-switcher"
 BufferSwitcher = require "../lib/buffer-switcher"
 
 describe "RubyTestSwitcher", ->
-  [workspaceElement, sourcePath, testPath] = []
+  [workspaceElement, sourcePath, testPath, switcher] = []
 
   beforeEach ->
     workspaceElement = atom.views.getView(atom.workspace)
@@ -13,12 +13,12 @@ describe "RubyTestSwitcher", ->
     waitsForPromise ->
       atom.packages.activatePackage("ruby-test-switcher")
 
-  describe "when 'switch' is triggered", ->
-    describe "with an active text editor", ->
-      beforeEach ->
-        waitsForPromise ->
-          atom.workspace.open(sourcePath)
+  describe "with an active text editor containing a Ruby source file", ->
+    beforeEach ->
+      waitsForPromise ->
+        atom.workspace.open(sourcePath)
 
+    describe "when 'switch' is triggered", ->
       it "switches to the test file, splitting pane", ->
         atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch")
 
@@ -30,27 +30,32 @@ describe "RubyTestSwitcher", ->
           expect(currentPath).toBe(testPath)
           expect(atom.workspace.getPanes().length).toBe(2)
 
-    describe "without an active text editor", ->
+    describe "when 'switch-without-split' is triggered", ->
+      it "switches to the test file, without splitting pane", ->
+        atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch-without-split")
+
+        waitsFor ->
+          atom.workspace.getActiveTextEditor().getPath() != sourcePath
+
+        runs ->
+          currentPath = atom.workspace.getActiveTextEditor().getPath()
+          expect(currentPath).toBe(testPath)
+          expect(atom.workspace.getPanes().length).toBe(1)
+
+  describe "without an active text editor", ->
+    beforeEach ->
+      switcher = jasmine.createSpyObj("switcher", ["switch"])
+      spyOn(RubyTestSwitcher, "switcher").andCallFake ->
+        switcher
+
+    describe "when 'switch' is triggered", ->
       it "doesn't ask BufferSwitcher to switch", ->
-        switcher = jasmine.createSpyObj("switcher", ["switch"])
-        spyOn(RubyTestSwitcher, "switcher").andCallFake ->
-          switcher
         atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch")
 
         expect(switcher.switch).not.toHaveBeenCalled()
 
-  describe "when 'switch-without-split' is triggered in a source file", ->
-    beforeEach ->
-      waitsForPromise ->
-        atom.workspace.open(sourcePath)
+    describe "when 'switch-without-split' is triggered", ->
+      it "doesn't ask BufferSwitcher to switch", ->
+        atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch-without-split")
 
-    it "switches to the test file, without splitting pane", ->
-      atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch-without-split")
-
-      waitsFor ->
-        atom.workspace.getActiveTextEditor().getPath() != sourcePath
-
-      runs ->
-        currentPath = atom.workspace.getActiveTextEditor().getPath()
-        expect(currentPath).toBe(testPath)
-        expect(atom.workspace.getPanes().length).toBe(1)
+        expect(switcher.switch).not.toHaveBeenCalled()
