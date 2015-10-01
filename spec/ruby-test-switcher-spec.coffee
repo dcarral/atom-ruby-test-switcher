@@ -13,13 +13,13 @@ describe "RubyTestSwitcher", ->
     waitsForPromise ->
       atom.packages.activatePackage("ruby-test-switcher")
 
-  describe "when the ruby-test-switcher:switch event is triggered", ->
+  describe "when 'switch' is triggered", ->
     describe "with an active text editor", ->
       beforeEach ->
         waitsForPromise ->
           atom.workspace.open(sourcePath)
 
-      it "switches to the spec file splitting pane", ->
+      it "switches to the test file, splitting pane", ->
         atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch")
 
         waitsFor ->
@@ -44,7 +44,7 @@ describe "RubyTestSwitcher", ->
       waitsForPromise ->
         atom.workspace.open(sourcePath)
 
-    it "switches to the spec file without splitting pane", ->
+    it "switches to the test file, without splitting pane", ->
       atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch-without-split")
 
       waitsFor ->
