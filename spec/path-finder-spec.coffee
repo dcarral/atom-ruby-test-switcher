@@ -63,10 +63,14 @@ describe "PathFinder", ->
     # Uses 'rom-rb' as sample Ruby project using 'non-standard' locations for its test files
     describe "with rom-rb-like projects", ->
       describe "with a source code file located at lib/rom", ->
-        fit "returns the related test filepath", ->
+        fit "returns the related test filepath if it exists", ->
           sourcePath = path.join(@rootPath, "lib", "rom", "rom.rb")
           expectedPath = path.join(@rootPath, "spec", "unit", "rom", "rom_spec.rb")
           expect(finder.findTestPath(sourcePath)).toBe(expectedPath)
+
+        fit "returns undefined if it doesn't have related test file", ->
+          sourcePath = path.join(@rootPath, "lib", "rom", "rom_fake.rb")
+          expect(finder.findTestPath(sourcePath)).toBeUndefined()
 
   describe "::findSourcePath", ->
     describe "with a source code file without related test file", ->
@@ -121,7 +125,7 @@ describe "PathFinder", ->
     # Uses 'rom-rb' as sample Ruby project using 'non-standard' locations for its test files
     describe "with rom-rb-like projects", ->
       describe "with a test file located at spec/unit/rom", ->
-        it "returns the related source code filepath", ->
+        it "returns the related source code filepath if it exists", ->
           testPath = path.join(@rootPath, "spec", "unit", "rom", "rom_spec.rb")
           expectedPath = path.join(@rootPath, "lib", "rom", "rom.rb")
           expect(finder.findSourcePath(testPath)).toBe(expectedPath)
