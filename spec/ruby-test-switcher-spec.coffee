@@ -46,7 +46,7 @@ describe "RubyTestSwitcher", ->
   describe "with an active text editor containing rom-rb-like Ruby source file", ->
     beforeEach ->
       sourcePath = path.join(__dirname, "fixtures", "lib", "rom", "rom.rb")
-      testPath = path.join(__dirname, "spec", "unit", "rom", "rom_spec.rb")
+      testPath = path.join(__dirname, "fixtures", "spec", "unit", "rom", "rom_spec.rb")
       waitsForPromise ->
         atom.workspace.open(sourcePath)
 
