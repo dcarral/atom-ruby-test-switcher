@@ -42,6 +42,25 @@ describe "RubyTestSwitcher", ->
           expect(currentPath).toBe(testPath)
           expect(atom.workspace.getPanes().length).toBe(1)
 
+  # Uses 'rom-rb' as sample Ruby project using 'non-standard' locations for its test files
+  describe "with an active text editor containing rom-rb-like Ruby source file", ->
+    beforeEach ->
+      sourcePath = path.join(__dirname, "fixtures", "lib", "rom", "foo.rb")
+      testPath = path.join(__dirname, "spec", "unit", "rom", "foo_spec.rb")
+      waitsForPromise ->
+        atom.workspace.open(sourcePath)
+
+    it "switches to the test file, splitting pane when 'switch is triggered'", ->
+      atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch")
+
+      waitsFor ->
+        atom.workspace.getActiveTextEditor() != undefined
+
+      runs ->
+        currentPath = atom.workspace.getActiveTextEditor().getPath()
+        expect(currentPath).toBe(testPath)
+
+
   describe "without an active text editor", ->
     beforeEach ->
       switcher = jasmine.createSpyObj("switcher", ["switch"])
