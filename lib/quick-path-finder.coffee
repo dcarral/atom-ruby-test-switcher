@@ -1,15 +1,16 @@
 path = require "path"
 _ = require "underscore"
 {File} = require "atom"
+PathFinderUtilities = require "./path-finder-utilities.coffee"
 
 module.exports =
 class QuickPathFinder
-  constructor: (@testFilesDirectories, @testFilesSuffixes) ->
+  constructor: (@utilities) ->
 
   findTestPath: (sourcePath) ->
-    rootPath = @getProjectRootPath(sourcePath)
-    sourceRelativePath = @getRelativePath(sourcePath)
-    testFilenames = @getTestFilenameCandidates(sourceRelativePath)
+    rootPath = @utilities.getProjectRootPath(sourcePath)
+    sourceRelativePath = @utilities.getRelativePath(sourcePath)
+    testFilenames = @utilities.getTestFilenameCandidates(sourceRelativePath)
 
     quickRelativePaths = @findQuickTestRelativePaths(sourceRelativePath)
     quickPath = @findQuickPath(rootPath, quickRelativePaths, testFilenames)
@@ -20,9 +21,9 @@ class QuickPathFinder
     return railsQuickPath if railsQuickPath
 
   findSourcePath: (testPath) ->
-    rootPath = @getProjectRootPath(testPath)
-    testRelativePath = @getRelativePath(testPath)
-    sourceFilename = @getSourceFilename(testRelativePath)
+    rootPath = @utilities.getProjectRootPath(testPath)
+    testRelativePath = @utilities.getRelativePath(testPath)
+    sourceFilename = @utilities.getSourceFilename(testPath)
 
     quickRelativePath = @findQuickSourceRelativePath(testRelativePath, false)
     quickPath = @findQuickPath(rootPath, [quickRelativePath], [sourceFilename])
@@ -33,7 +34,9 @@ class QuickPathFinder
     return railsQuickPath if railsQuickPath
 
   findQuickTestRelativePaths: (sourceRelativePath) ->
-    _(@testFilesDirectories).map (testFilesDirectory) ->
+    testFilesDirectories = @utilities.getTestFilesDirectories()
+
+    _(testFilesDirectories).map (testFilesDirectory) ->
       sourceDirectories = path.dirname(sourceRelativePath).split(path.sep)
       sourceDirectories[0] = testFilesDirectory
       path.join.apply(null, sourceDirectories)
@@ -50,6 +53,7 @@ class QuickPathFinder
       testDirectories[0] = "lib"
     else
       testDirectories[0] = "app"
+
     path.join.apply(null, testDirectories)
 
   findQuickRailsSourceRelativePaths: (testRelativePath) ->
@@ -60,17 +64,6 @@ class QuickPathFinder
     app_path = @findQuickSourceRelativePath(testRelativePath, true)
     [lib_path, app_path]
 
-  getTestFilenameCandidates: (sourceRelativePath) ->
-    sourceBasename = path.basename(sourceRelativePath, ".rb")
-    _(@testFilesSuffixes).map (testFileSuffix) ->
-      sourceBasename + testFileSuffix + ".rb"
-
-  getSourceFilename: (testRelativePath) ->
-    testBasename = path.basename(testRelativePath, ".rb")
-    testSuffix = _(@testFilesSuffixes).find (suffix) ->
-      testBasename.includes(suffix)
-    testBasename.replace(testSuffix, "") + ".rb"
-
   findQuickPath: (rootPath, candidateDirectories, candidateFilenames) ->
     _(candidateFilenames).chain()
       .map (candidateFilename) ->
@@ -80,9 +73,3 @@ class QuickPathFinder
       .find (candidatePath) ->
         new File(candidatePath).existsSync()
       .value()
-
-  getProjectRootPath: (fullPath) ->
-    atom.project.relativizePath(fullPath)[0]
-
-  getRelativePath: (fullPath) ->
-    atom.project.relativizePath(fullPath)[1]

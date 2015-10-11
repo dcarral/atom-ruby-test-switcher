@@ -1,15 +1,23 @@
 QuickPathFinder = require "./quick-path-finder"
+GlobalPathFinder = require "./global-path-finder"
+PathFinderUtilities = require "./path-finder-utilities"
 
 module.exports =
 class PathFinder
-  testFilesDirectories: ["spec", "test"]
-  testFilesSuffixes: ["_spec", "_test"]
-
   constructor: (@finder, @editor, opts = {}) ->
-    @quickFinder = new QuickPathFinder(@testFilesDirectories, @testFilesSuffixes)
+    utilities = new PathFinderUtilities()
+
+    @quickFinder = new QuickPathFinder(utilities)
+    @globalFinder = new GlobalPathFinder(utilities)
 
   findTestPath: (sourcePath) ->
-    @quickFinder.findTestPath(sourcePath)
+    quickPath = @quickFinder.findTestPath(sourcePath)
+    return quickPath if quickPath
+
+    @globalFinder.findTestPath(sourcePath)
 
   findSourcePath: (testPath) ->
-    @quickFinder.findSourcePath(testPath)
+    quickPath = @quickFinder.findSourcePath(testPath)
+    return quickPath if quickPath
+
+    @globalFinder.findSourcePath(testPath)
