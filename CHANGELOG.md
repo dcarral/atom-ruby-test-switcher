@@ -1,3 +1,9 @@
+## 1.2.0
+
+From this release onwards, _ruby-test-switcher_ can handle any Ruby project out of the box.
+
+* Add support to find both source and test files in 'non-standard' locations
+
 ## 1.1.0
 
 * Add support to switch files without splitting panes
