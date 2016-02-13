@@ -78,3 +78,29 @@ describe "RubyTestSwitcher", ->
         atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch-without-split")
 
         expect(switcher.switch).not.toHaveBeenCalled()
+
+  describe "with a blank document", ->
+    beforeEach ->
+      switcher = jasmine.createSpyObj("switcher", ["switch"])
+      spyOn(RubyTestSwitcher, "switcher").andCallFake ->
+        switcher
+      waitsForPromise ->
+        atom.workspace.open()
+
+    describe "when 'switch' is triggered", ->
+      it "doesn't ask BufferSwitcher to switch", ->
+        waitsFor ->
+          atom.workspace.getActiveTextEditor() != undefined
+
+        runs ->
+          atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch-without-split")
+          expect(switcher.switch).not.toHaveBeenCalled()
+
+    describe "when 'switch-without-split' is triggered", ->
+      it "doesn't ask BufferSwitcher to switch", ->
+        waitsFor ->
+          atom.workspace.getActiveTextEditor() != undefined
+
+        runs ->
+          atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch-without-split")
+          expect(switcher.switch).not.toHaveBeenCalled()
