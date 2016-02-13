@@ -1,3 +1,6 @@
+## 1.2.1
+* Prevent switch attempts without an active document
+
 ## 1.2.0
 
 From this release onwards, _ruby-test-switcher_ can handle any Ruby project out of the box.
