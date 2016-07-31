@@ -2,7 +2,7 @@
   "name": "ruby-test-switcher",
   "author": "Daniel Carral",
   "main": "./lib/ruby-test-switcher",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Switch between Ruby source code and test files with a single keystroke",
   "keywords": [
     "ruby",
