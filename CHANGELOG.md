@@ -1,4 +1,10 @@
+## 1.2.2
+
+* Change default keybindings to use 'alt' instead of 'ctrl' (see #9)
+* Improve README documenting assumed left/right directions when splitting panes (see #1)
+
 ## 1.2.1
+
 * Prevent switch attempts without an active document
 
 ## 1.2.0
