@@ -5,12 +5,22 @@ describe "PathFinder", ->
   [finder] = []
 
   beforeEach ->
+    atom.config.set('ruby-test-switcher.useGlobalPathFinder', true)
     finder = new PathFinder
     @rootPath = path.join(__dirname, "fixtures")
     waitsForPromise ->
       atom.workspace.open(@rootPath)
 
   describe "::findTestPath", ->
+    describe "with disabled useGlobalPathFinder option", ->
+      beforeEach ->
+        atom.config.set('ruby-test-switcher.useGlobalPathFinder', false)
+        finder = new PathFinder
+
+      it "retunrs undefined if file is in non-standard dir", ->
+        sourcePath = path.join(@rootPath, "lib", "rom", "rom_fake.rb")
+        expect(finder.findTestPath(sourcePath)).toBeUndefined()
+
     describe "with a source code filepath without related test file", ->
       it "returns undefined", ->
         sourcePath = path.join(@rootPath, "lib", "without_tests.rb")
