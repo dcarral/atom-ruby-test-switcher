@@ -1,3 +1,7 @@
+## 1.2.3
+
+* Change default keybindings to use 'r' instead of '.' (see #10)
+
 ## 1.2.2
 
 * Change default keybindings to use 'alt' instead of 'ctrl' (see #9)
