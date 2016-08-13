@@ -1,4 +1,4 @@
-# [ruby-test-switcher](https://atom.io/packages/ruby-test-switcher) [![Build Status](https://travis-ci.org/dcarral/atom-ruby-test-switcher.svg?branch=master)](https://travis-ci.org/dcarral/atom-ruby-test-switcher)
+# [ruby-test-switcher](https://atom.io/packages/ruby-test-switcher) [![Build status](https://travis-ci.org/dcarral/atom-ruby-test-switcher.svg?branch=master)](https://travis-ci.org/dcarral/atom-ruby-test-switcher) [![Dependencies status](https://david-dm.org/dcarral/atom-ruby-test-switcher.svg)](https://david-dm.org/dcarral/atom-ruby-test-switcher)
 
 __ruby-test-switcher__ is an Atom package to switch between Ruby source code and test files with a single keystroke.
 
