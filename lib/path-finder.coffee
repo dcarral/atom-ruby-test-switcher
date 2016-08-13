@@ -4,20 +4,22 @@ PathFinderUtilities = require "./path-finder-utilities"
 
 module.exports =
 class PathFinder
-  constructor: (@finder, @editor, opts = {}) ->
+  constructor: ->
     utilities = new PathFinderUtilities()
 
     @quickFinder = new QuickPathFinder(utilities)
-    @globalFinder = new GlobalPathFinder(utilities)
+
+    if atom.config.get 'ruby-test-switcher.useGlobalPathFinder'
+      @globalFinder = new GlobalPathFinder(utilities)
 
   findTestPath: (sourcePath) ->
     quickPath = @quickFinder.findTestPath(sourcePath)
     return quickPath if quickPath
 
-    @globalFinder.findTestPath(sourcePath)
+    @globalFinder.findTestPath(sourcePath) if @globalFinder
 
   findSourcePath: (testPath) ->
     quickPath = @quickFinder.findSourcePath(testPath)
     return quickPath if quickPath
 
-    @globalFinder.findSourcePath(testPath)
+    @globalFinder.findSourcePath(testPath) if @globalFinder

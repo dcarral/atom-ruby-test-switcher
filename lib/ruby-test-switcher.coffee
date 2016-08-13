@@ -4,6 +4,12 @@ PathFinder = require "./path-finder"
 _ = require "underscore"
 
 module.exports = RubyTestSwitcher =
+  config:
+    useGlobalPathFinder:
+      title: "Enable support for looking up source and test files in 'non-standard' locations"
+      type: 'boolean'
+      default: true
+
   subscriptions: null
 
   activate: (_state) ->
