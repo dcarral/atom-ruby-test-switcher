@@ -8,11 +8,11 @@ It supports _RSpec_, _minitest_ and _test-unit_, both in _Rails_ and non-_Rails_
 
 By default, available key bindings are:
 
-- Switch in active pane: <kbd>alt</kbd>-<kbd>.</kbd>
+- Switch in active pane: <kbd>alt</kbd>-<kbd>r</kbd>
 
   Switch to target file, in the same pane. *
 
-- Switch splitting panes: <kbd>alt</kbd>-<kbd>shift</kbd>-<kbd>.</kbd>
+- Switch splitting panes: <kbd>alt</kbd>-<kbd>shift</kbd>-<kbd>r</kbd>
 
   Switch to target file, in different pane (if needed). Source files are opened to the left, test files to the right. *
 
