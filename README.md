@@ -18,6 +18,14 @@ By default, available key bindings are:
 
 \* Notice that if the target file is already opened, both commands simply switch to it.
 
+## Configuration settings
+
+The following configuration settings are exposed:
+
+- Create test file if none is found (default: `false`).
+
+  If enabled, a new text editor is opened when switching to inexistent test files. If disabled, no text editors are opened.
+
 ## Installation
 
 From the command line:
