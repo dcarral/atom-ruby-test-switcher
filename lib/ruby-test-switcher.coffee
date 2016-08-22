@@ -6,7 +6,11 @@ _ = require "underscore"
 module.exports = RubyTestSwitcher =
   config:
     createTestFileIfNoneFound:
-      title: "When switching, creates a new test file if none has been found."
+      title: "Create test file if none is found"
+      description: """
+        If enabled, a new text editor is opened when switching to inexistent test files.
+        If disabled, no text editors are opened.
+      """
       type: "boolean"
       default: false
 
