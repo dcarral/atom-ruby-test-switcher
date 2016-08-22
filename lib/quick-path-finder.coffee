@@ -13,11 +13,11 @@ class QuickPathFinder
     testFilenames = @utilities.getTestFilenameCandidates(sourceRelativePath)
 
     quickRelativePaths = @findQuickTestRelativePaths(sourceRelativePath)
-    quickPath = @findQuickPath(rootPath, quickRelativePaths, testFilenames)
+    quickPath = @findQuickAndExistingPath(rootPath, quickRelativePaths, testFilenames)
     return quickPath if quickPath
 
     quickRailsRelativePaths = @findQuickRailsTestRelativePaths(sourceRelativePath)
-    railsQuickPath = @findQuickPath(rootPath, quickRailsRelativePaths, testFilenames)
+    railsQuickPath = @findQuickAndExistingPath(rootPath, quickRailsRelativePaths, testFilenames)
     return railsQuickPath if railsQuickPath
 
   findSourcePath: (testPath) ->
@@ -26,11 +26,11 @@ class QuickPathFinder
     sourceFilename = @utilities.getSourceFilename(testPath)
 
     quickRelativePath = @findQuickSourceRelativePath(testRelativePath, false)
-    quickPath = @findQuickPath(rootPath, [quickRelativePath], [sourceFilename])
+    quickPath = @findQuickAndExistingPath(rootPath, [quickRelativePath], [sourceFilename])
     return quickPath if quickPath
 
     quickRailsRelativePaths = @findQuickRailsSourceRelativePaths(testRelativePath)
-    railsQuickPath = @findQuickPath(rootPath, quickRailsRelativePaths, [sourceFilename])
+    railsQuickPath = @findQuickAndExistingPath(rootPath, quickRailsRelativePaths, [sourceFilename])
     return railsQuickPath if railsQuickPath
 
   findQuickTestRelativePaths: (sourceRelativePath) ->
@@ -64,12 +64,26 @@ class QuickPathFinder
     app_path = @findQuickSourceRelativePath(testRelativePath, true)
     [lib_path, app_path]
 
-  findQuickPath: (rootPath, candidateDirectories, candidateFilenames) ->
+  findQuickAndExistingPath: (rootPath, candidateDirectories, candidateFilenames) ->
+    quickCandidatePaths = @findQuickCandidatePaths(rootPath, candidateDirectories, candidateFilenames)
+
+    quickCandidatePaths.find (quickCandidatePath) ->
+      new File(quickCandidatePath).existsSync()
+
+  findQuickCandidatePaths: (rootPath, candidateDirectories, candidateFilenames) ->
     _(candidateFilenames).chain()
       .map (candidateFilename) ->
         _(candidateDirectories).map (candidateDirectory) ->
           path.join(rootPath, candidateDirectory, candidateFilename)
       .flatten()
-      .find (candidatePath) ->
-        new File(candidatePath).existsSync()
       .value()
+
+  findBestTestCandidatePath: (sourcePath) ->
+    rootPath = @utilities.getProjectRootPath(sourcePath)
+    sourceRelativePath = @utilities.getRelativePath(sourcePath)
+
+    testDirectories = @findQuickTestRelativePaths(sourceRelativePath)
+    testFilenames = @utilities.getTestFilenameCandidates(sourceRelativePath)
+
+    candidatePaths = @findQuickCandidatePaths(rootPath, testDirectories, testFilenames)
+    _(candidatePaths).first()

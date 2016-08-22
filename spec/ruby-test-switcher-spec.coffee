@@ -60,7 +60,6 @@ describe "RubyTestSwitcher", ->
         currentPath = atom.workspace.getActiveTextEditor().getPath()
         expect(currentPath).toBe(testPath)
 
-
   describe "without an active text editor", ->
     beforeEach ->
       switcher = jasmine.createSpyObj("switcher", ["switch"])

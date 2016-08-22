@@ -70,22 +70,43 @@ describe "BufferSwitcher", ->
     describe "::inRubyTestFile", ->
       it "returns true", ->
         expect(switcher.inRubyTestFile()).toBeTruthy()
-    describe "::switchToTestFile", ->
-      describe "when a test file path is found", ->
-        it "invokes ::switchToFile", ->
-          spyOn(@finder, "findTestPath").andReturn("whatever")
-          switcher = new BufferSwitcher(@finder, @mockEditor)
-          spyOn(switcher, "switchToFile")
-          switcher.switchToTestFile()
-          expect(switcher.switchToFile).toHaveBeenCalled()
 
-      describe "when a test file path isn't found", ->
-        it "doesn't invoke ::switchToFile", ->
-          spyOn(@finder, "findTestPath").andReturn(undefined)
-          switcher = new BufferSwitcher(@finder, @mockEditor)
-          spyOn(switcher, "switchToFile")
-          switcher.switchToTestFile()
-          expect(switcher.switchToFile).not.toHaveBeenCalled()
+    describe "::switchToTestFile", ->
+      describe "with createTestFileIfNoneFound set to false (default)", ->
+        describe "when a test file path is found", ->
+          it "invokes ::switchToFile", ->
+            spyOn(@finder, "findTestPath").andReturn("whatever")
+            switcher = new BufferSwitcher(@finder, @mockEditor)
+            spyOn(switcher, "switchToFile")
+            switcher.switchToTestFile()
+            expect(switcher.switchToFile).toHaveBeenCalled()
+
+        describe "when a test file path isn't found", ->
+          it "doesn't invoke ::switchToFile", ->
+            spyOn(@finder, "findTestPath").andReturn(undefined)
+            switcher = new BufferSwitcher(@finder, @mockEditor)
+            spyOn(switcher, "switchToFile")
+            switcher.switchToTestFile()
+            expect(switcher.switchToFile).not.toHaveBeenCalled()
+
+      describe "with createTestFileIfNoneFound set to true", ->
+        describe "when a test file path is found", ->
+          it "invokes ::switchToFile", ->
+            spyOn(@finder, "findTestPath").andReturn("whatever")
+            switcher = new BufferSwitcher(@finder, @mockEditor)
+            spyOn(switcher, "switchToFile")
+            switcher.switchToTestFile()
+            expect(switcher.switchToFile).toHaveBeenCalled()
+
+        describe "when a test file path isn't found", ->
+          it "invokes ::switchToFile anyway", ->
+            atom.config.set("ruby-test-switcher.createTestFileIfNoneFound", true)
+            spyOn(@finder, "findTestPath").andReturn(undefined)
+            spyOn(@finder, "findBestTestCandidatePath").andReturn("whatever")
+            switcher = new BufferSwitcher(@finder, @mockEditor)
+            spyOn(switcher, "switchToFile")
+            switcher.switchToTestFile()
+            expect(switcher.switchToFile).toHaveBeenCalled()
 
     describe "::switchToSourceFile", ->
       describe "when a source file path is found", ->

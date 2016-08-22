@@ -129,3 +129,10 @@ describe "PathFinder", ->
           testPath = path.join(@rootPath, "spec", "unit", "rom", "rom_spec.rb")
           expectedPath = path.join(@rootPath, "lib", "rom", "rom.rb")
           expect(finder.findSourcePath(testPath)).toBe(expectedPath)
+
+  describe "::findBestTestCandidatePath", ->
+    describe "with any source code filepath", ->
+      it "returns a standard test location", ->
+        sourcePath = path.join(@rootPath, "lib", "nested", "without_tests.rb")
+        bestTestCandidatePath = path.join(@rootPath, "spec", "nested", "without_tests_spec.rb")
+        expect(finder.findBestTestCandidatePath(sourcePath)).toBe(bestTestCandidatePath)

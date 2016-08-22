@@ -21,3 +21,6 @@ class PathFinder
     return quickPath if quickPath
 
     @globalFinder.findSourcePath(testPath)
+
+  findBestTestCandidatePath: (sourcePath) ->
+    @quickFinder.findBestTestCandidatePath(sourcePath)

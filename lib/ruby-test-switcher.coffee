@@ -4,6 +4,12 @@ PathFinder = require "./path-finder"
 _ = require "underscore"
 
 module.exports = RubyTestSwitcher =
+  config:
+    createTestFileIfNoneFound:
+      title: "When switching, creates a new test file if none has been found."
+      type: "boolean"
+      default: false
+
   subscriptions: null
 
   activate: (_state) ->

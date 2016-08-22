@@ -6,6 +6,7 @@ class BufferSwitcher
   constructor: (@finder, @editor, opts = {}) ->
     @currentPath = @editor.getPath()
     @splitEnabled = opts.split
+    @createTestFileIfNoneFound = atom.config.get("ruby-test-switcher.createTestFileIfNoneFound")
 
   switch: ->
     if @inRubyTestFile()
@@ -14,8 +15,12 @@ class BufferSwitcher
       @switchToTestFile()
 
   switchToTestFile: ->
-    testPath = @finder.findTestPath(@currentPath)
-    @switchToFile(testPath, "right") if testPath
+    existingTestPath = @finder.findTestPath(@currentPath)
+    if existingTestPath
+      @switchToFile(existingTestPath, "right")
+    else if @createTestFileIfNoneFound
+      bestCandidatePath = @finder.findBestTestCandidatePath(@currentPath)
+      @switchToFile(bestCandidatePath, "right")
 
   switchToSourceFile: ->
     sourcePath = @finder.findSourcePath(@currentPath)
