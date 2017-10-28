@@ -20,18 +20,21 @@ describe "RubyTestSwitcher", ->
 
     describe "when 'switch' is triggered", ->
       it "switches to the test file, splitting pane", ->
+        originalPanesCount = atom.workspace.getPanes().length
         atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch")
 
         waitsFor ->
-          atom.workspace.getActiveTextEditor() != undefined
+          atom.workspace.getActiveTextEditor().getPath() != sourcePath
 
         runs ->
           currentPath = atom.workspace.getActiveTextEditor().getPath()
+          currentPanesCount = atom.workspace.getPanes().length
           expect(currentPath).toBe(testPath)
-          expect(atom.workspace.getPanes().length).toBe(2)
+          expect(currentPanesCount).toBe(originalPanesCount + 1)
 
     describe "when 'switch-without-split' is triggered", ->
       it "switches to the test file, without splitting pane", ->
+        originalPanesCount = atom.workspace.getPanes().length
         atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch-without-split")
 
         waitsFor ->
@@ -39,8 +42,9 @@ describe "RubyTestSwitcher", ->
 
         runs ->
           currentPath = atom.workspace.getActiveTextEditor().getPath()
+          currentPanesCount = atom.workspace.getPanes().length
           expect(currentPath).toBe(testPath)
-          expect(atom.workspace.getPanes().length).toBe(1)
+          expect(currentPanesCount).toBe(originalPanesCount)
 
   # Uses 'rom-rb' as sample Ruby project using 'non-standard' locations for its test files
   describe "with an active text editor containing rom-rb-like Ruby source file", ->
@@ -54,7 +58,7 @@ describe "RubyTestSwitcher", ->
       atom.commands.dispatch(workspaceElement, "ruby-test-switcher:switch")
 
       waitsFor ->
-        atom.workspace.getActiveTextEditor() != undefined
+        atom.workspace.getActiveTextEditor().getPath() != sourcePath
 
       runs ->
         currentPath = atom.workspace.getActiveTextEditor().getPath()
